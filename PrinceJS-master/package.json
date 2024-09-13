@@ -31,7 +31,7 @@
     "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
-    "jaxpi": "file:../../jaxpi-1.0.0.tgz",
+    "jaxpi": "^1.0.0",
     "phaser": "^3.55.2"
   }
 }

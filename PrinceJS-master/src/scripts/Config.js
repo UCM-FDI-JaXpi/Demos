@@ -19,9 +19,9 @@ export const SERVER_URL = 'http://localhost:3000/records'
 export const ACTOR_NAME = 'Super Mario'
 export const ACTOR_MAIL = 'student1@example.com'
 export const GAME_TOKEN_POP = 'cEPTx-GsXov-dJBXe-pY7jc-NPyQ9'
-// let headers = {
+// let headers = { // xAPI Lab necessary headers
 //     "Content-Type": "application/json",
-//     "Authorization": `Basic ${btoa('xapi-tools:xapi-tools')}`, // Si usas autenticación básica
-//     "X-Experience-API-Version": "1.0.3", // Necesario para xAPI
+//     "Authorization": `Basic ${btoa('xapi-tools:xapi-tools')}`, 
+//     "X-Experience-API-Version": "1.0.3", 
 // };
 // export const GAME_TOKEN_POP = headers;
