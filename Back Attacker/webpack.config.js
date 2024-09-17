@@ -1,42 +1,54 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-
-const isProduction = process.env.npm_lifecycle_event === 'build'
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src',
-  devtool: !isProduction && 'source-map',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader'
-          }
-        ]
-      }
-    ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif|mp3)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]',
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      minify: isProduction && {
-        collapseWhitespace: true
-      },
-      inlineSource: isProduction && '\.(js|css)$'
+      template: './src/index.html',
     }),
-    new HtmlWebpackInlineSourcePlugin(),
-    new OptimizeCssAssetsPlugin({}),
-    new MiniCssExtractPlugin({
-      filename: '[name].css'
-    })
+    new MiniCssExtractPlugin(),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin(),
+      new CssMinimizerPlugin(),
+    ],
+  },
   devServer: {
-    stats: 'minimal',
-    overlay: true
-  }
-}
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    hot: true, // Enable Hot Module Replacement
+  },
+  mode: 'production',
+};

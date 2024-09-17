@@ -1,8 +1,118 @@
 <!DOCTYPE html>
-<html>
-  <head><style>body{background-color:#000;margin:0}body{display:flex;width:100vw;height:100vh;overflow:hidden;align-items:center;justify-content:center;color:#eee;background:#000;font-family:sans-serif}body.loading{display:flex}#canvas{width:600px;height:600px;background:#333}</style>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menú de Juego</title>
+    <style>
+      body {
+        background-color: #000;
+        margin: 0;
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        color: #eee;
+        font-family: sans-serif;
+      }
+
+      #menu, #game {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #menu {
+        display: flex;
+      }
+
+      #game {
+        display: none;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 200px;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: #555;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #888;
+      }
+
+      #canvas {
+        width: 600px;
+        height: 600px;
+        background: #333;
+      }
+    </style>
   </head>
-  <body class="loading">
-    <canvas id="canvas" width="600" height="600"></canvas>
+  <body>
+    <!-- Menú Inicial -->
+    <div id="menu">
+      <h1>Menú de Juego</h1>
+      <input
+        type="text"
+        id="password"
+        placeholder="Introduce tu contraseña (6 dígitos)"
+        maxlength="6"
+      />
+      <button onclick="playWithId()">Jugar Identificado</button>
+      <button onclick="playWithoutId()">Jugar Sin Identificación</button>
+      <p id="error-msg" style="color: red; display: none;">Contraseña no válida.</p>
+    </div>
+
+    <!-- Juego -->
+    <div id="game">
+      <canvas id="canvas" width="600" height="600"></canvas>
+    </div>
+
+    <script>
+
+      function playWithId() {
+        const key = document.getElementById("password").value;
+        const errorMsg = document.getElementById("error-msg");
+
+        if (jaxpi.validateKey(key)) {
+          jaxpi.setKey(key);
+          startGame();
+        } else {
+          errorMsg.style.display = "block";
+        }
+      }
+
+      function playWithoutId() {
+        startGame();
+      }
+
+      function startGame() {
+        // Ocultar el menú y mostrar el juego
+        document.getElementById("menu").style.display = "none";
+        document.getElementById("game").style.display = "flex";
+
+        // Aquí puedes inicializar el juego
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#eee";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    </script>
   </body>
 </html>
+

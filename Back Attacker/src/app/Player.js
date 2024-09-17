@@ -83,7 +83,7 @@ class Player extends Entity{
     Asset.play(SHOT_AUDIO);
 
     if (this.hp <= 0) {
-      jaxpi.died().character(`Player`)
+      jaxpi.died().character(`Player`);
       Asset.play(HIT_AUDIO);
       this.hp = 0;
       this.alive = false;

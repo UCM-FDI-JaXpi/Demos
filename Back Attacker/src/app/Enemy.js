@@ -68,6 +68,7 @@ class Enemy extends Entity {
       // Collide with player, die.
       Asset.play(HIT_AUDIO);
       this.alive = false;
+      jaxpi.defeated().enemy("Enemy");
       dieScatter.generate(x, y);
     }
 

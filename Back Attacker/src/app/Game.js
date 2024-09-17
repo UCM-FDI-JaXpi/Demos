@@ -103,7 +103,7 @@ class Game {
             } else {
               this.nextEnable = false;
               this.readyTextIdx = this.readyTexts.length - 1;
-              jaxpi.started().level(`Level ${this.stageNum}`)
+              jaxpi.started().level(`Level ${this.stageNum}`);
               this.load(this.stageNum);
               this.state = GAME_PLAYING;
             }
@@ -115,14 +115,14 @@ class Game {
             this.state = GAME_PLAYING;
             break;
           case GAME_STAGE_CLEAR:
-            jaxpi.completed().level(`Level ${this.stageNum}`)
+            jaxpi.completed().level(`Level ${this.stageNum}`);
             this.stageNum ++;
-            jaxpi.started().level(`Level ${this.stageNum}`)
+            jaxpi.started().level(`Level ${this.stageNum}`);
             this.load(this.stageNum);
             this.state = GAME_PLAYING;
             break;
           case GAME_ALL_CLEAR:
-            jaxpi.completed().game(`Back Backer}`)
+            jaxpi.completed().game(`Back Backer`);
             this.init();
             break;
         }
